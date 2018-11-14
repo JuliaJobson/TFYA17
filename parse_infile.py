@@ -11,7 +11,7 @@ import qml
 from parse_poscar import atomInformation
 
 def get_xyz(filename, information):
-    """ Returns positions for each xyz-file"""
+    """ Returns xyz-files from data file"""
 
     #Take out variables that will be constant throughout loops
     natoms=information.num_of_atoms
@@ -23,7 +23,7 @@ def get_xyz(filename, information):
     T = time.time()
 
 
-    #Loop over all time units in given file, TODO, stops when it crashes, we want to stop manually
+    #Loop over all time units in given file
     with open(filename, 'r') as file:
 
 
