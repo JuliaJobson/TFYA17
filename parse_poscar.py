@@ -65,7 +65,7 @@ class atomInformation(object):
             self.supercell = self.supercell.reshape(3,3)
 
             # Atom type
-            self.type = next(file)
+            self.type = next(file).rstrip()
 
             # Numer of atoms in OUTCAR
             self.num_of_atoms = int(next(file))
