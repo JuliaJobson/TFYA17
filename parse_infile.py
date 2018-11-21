@@ -41,7 +41,7 @@ def get_xyz(filename, information):
                 xyzfile.write("charge = %s \n" % charge)
                 time_step_counter += 1
 
-            xyzfile.write(" %s %s\n" % (name, line))
+            xyzfile.write(" %s %s" % (name, line))
             atom_counter += 1
 
             if atom_counter == natoms + 1:
