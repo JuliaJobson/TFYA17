@@ -6,8 +6,11 @@ import sys
 import time
 
 import numpy as np
+<<<<<<< HEAD
 import pickle
 
+=======
+>>>>>>> 05c5cf7657d15c38704fc7d148412ffb3c6ab12d
 from qml.representations import get_slatm_mbtypes
 from qml.kernels import get_local_kernels_gaussian
 from qml.math import cho_solve
@@ -25,7 +28,9 @@ def generateRep(num_of_xyz, property_filename):
 
     for compound in compounds:
 
+
         compound.generate_slatm(mbtypes, local=True, pbc = '000')
+
 
     return compounds
     #    print("Representation:")
@@ -34,11 +39,12 @@ def generateRep(num_of_xyz, property_filename):
 
 if __name__ == "__main__":
 
+
     num_xyz = 4000
+
 
     # For every compound generate a coulomb matrix
     compounds = generateRep(num_xyz, 'infile.forces')
-
 
     # Make a big 2D array with all the
     with open('XData.pickle', 'rb') as f:
@@ -50,16 +56,19 @@ if __name__ == "__main__":
     with open('YData.pickle', 'rb') as f:
         Y = pickle.load(f)
 
+
     # variables
     num_atoms = N[0]
     num_comp = floor(num_xyz/2)
 
-    # Assign 1000 first atoms to the training set
+
     X_training = X[:num_comp*num_atoms, :]
     Y_training = Y[:num_comp, :, :]
     print('X_training')
     print(X_training)
+    print('Y_training')
     print(Y_training)
+
 
 
 
@@ -70,6 +79,7 @@ if __name__ == "__main__":
 
     print('K')
     print(K)
+
     print(K.shape)
 
     # Add a small lambda to the diagonal of the kernel matrix
@@ -87,9 +97,8 @@ if __name__ == "__main__":
     # Assign last atoms to the test set
     X_test = X[-num_comp*num_atoms:, :]
     Y_test = Y[-num_comp:, : , :]
-    #print('X-test')
-    #print(X_test.shape)
-    print('Y-test')
+
+
 
     # calculate a kernel matrix between test and training data, using the same sigma
     Ks = get_local_kernels_gaussian(X_training, X_test, N[:num_comp], N[-num_comp:], sigmas)
@@ -101,6 +110,7 @@ if __name__ == "__main__":
     for i in range(num_atoms):
         for j in range(3):
             Y_predicted[:,i,j] = np.dot(Ks[0,:,:], alphas[:,i,j])
+
 
     print('Y_predicted')
     print(Y_predicted)
@@ -122,3 +132,4 @@ if __name__ == "__main__":
         # The protocol version used is detected automatically, so we do not
         # have to specify it.
         #data = pickle.load(f)
+
